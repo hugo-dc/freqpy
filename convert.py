@@ -57,13 +57,10 @@ if __name__ == '__main__':
             out.write(svg_code)
             out.close()
 
-            command = '%s -z -f out.svg -w 1600 -j -e images\%s' % (ink_path, str(counter) )
-            command = command + '.png'
+            command = '%s -z -f out.svg -w 1600 -j -e images\%s.png' % (ink_path, str(counter) )
 
             print command
-
             os.system(command)        
-
             c = 0
 
 

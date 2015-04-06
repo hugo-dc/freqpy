@@ -39,29 +39,23 @@ if __name__ == '__main__':
     characters = codecs.open('characters.txt', 'r', encoding='utf-16')
 
     c = 0
-    character = ''
-    pinyin    = ''
-    meaning   = ''
     counter = 0
+
+    labels = ['character', 'pinyin', 'meaning']
+    data = {}
+
     for line in characters:
-        c += 1
-        if c ==1 :
-            character = line.strip()
-            continue
-        if c == 2:
-            pinyin = line.strip()
-            continue
-        if c == 3:
-            meaning = line.strip()
+        data[labels[c]] = line.strip()
+        c +=1 
+
+        if c == 3: 
             counter +=1
 
-            svg_code = repl([character, character, pinyin, meaning])
+            svg_code = repl([data['character'], data['character'], data['pinyin'], data['meaning']])
 
             out = codecs.open('out.svg', 'w', encoding='utf-16')
             out.write(svg_code)
             out.close()
-
-            codecs.open('pinyin.txt', 'w', encoding='utf-16').write(pinyin)
 
             command = '%s -z -f out.svg -w 1600 -j -e images\%s' % (ink_path, str(counter) )
             command = command + '.png'
